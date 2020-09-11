@@ -1,6 +1,8 @@
 package nl.ordina;
 
 public class Calculator {
+    private Calculator() {
+    }
 
     public static Integer add(Integer fist, Integer second) {
         return fist + second;
