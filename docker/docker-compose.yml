@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkinsci/blueocean
+    ports:
+      - "8080:8080"
+    volumes:
+      - $HOME:/home
+      - ./jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - devnet
+
+  sonarqube:
+    image: sonarqube:7.1-alpine
+    ports:
+      - "9091:9000"
+      - "9092:9092"
+    environment:
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=v07IGCFCF83Z95NX
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+    networks:
+      - devnet
+
+  db:
+    image: postgres:9.6.19
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=v07IGCFCF83Z95NX
+      - POSTGRES_DB=sonarqube
+    volumes:
+      - ./sonarqube_db:/var/lib/postgresql
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - ./sonarqube_db_data:/var/lib/postgresql/data
+    networks:
+      - devnet
+
+networks:
+  devnet:
+    driver: bridge
