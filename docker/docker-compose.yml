@@ -2,35 +2,18 @@ version: '3'
 
 services:
   jenkins:
-    image: jenkinsci/blueocean
+    image: jenkins/jenkins:lts
+    container_name: jenkins
     ports:
       - "8082:8080"
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
     volumes:
       - $HOME:/home
-      - ./jenkins-data:/var/jenkins_home
-      - ./jenkins-docker-certs:/certs/client:ro
+      - jenkins_data:/var/jenkins_home
     networks:
       - devnet
-  jenkins-dind:
-    image: docker:dind
-    container_name: jenkins-dind
-    privileged: true
-    environment:
-      - DOCKER_TLS_CERTDIR=certs
-    volumes:
-      - $HOME:/home
-      - ./jenkins-data:/var/jenkins_home
-      - ./jenkins-docker-certs:/certs/client
-    networks:
-      devnet:
-        aliases:
-          - docker
   sonarqube:
-    image: sonarqube:7.1-alpine
+    image: sonarqube:7.6-community
+    container_name: sonar
     ports:
       - "9091:9000"
       - "9092:9092"
@@ -38,10 +21,16 @@ services:
       - SONARQUBE_JDBC_USERNAME=sonar
       - SONARQUBE_JDBC_PASSWORD=v07IGCFCF83Z95NX
       - SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonarqube
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     networks:
       - devnet
   postgres:
-    image: postgres:9.6.19
+    image: postgres
+    container_name: postgres
     ports:
       - "5432:5432"
     environment:
@@ -49,14 +38,21 @@ services:
       - POSTGRES_PASSWORD=v07IGCFCF83Z95NX
       - POSTGRES_DB=sonarqube
     volumes:
-      - ./sonarqube_db:/var/lib/postgresql
+      - postgresql:/var/lib/postgresql
       # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-      - ./sonarqube_db_data:/var/lib/postgresql/data
+      - postgresql_data:/var/lib/postgresql/data
     networks:
       - devnet
+
 volumes:
-  jenkins-docker-certs:
-  jenkins-data:
+  jenkins_data:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+
 networks:
   devnet:
     driver: bridge

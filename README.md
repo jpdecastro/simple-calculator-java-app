@@ -9,9 +9,15 @@ All these steps will be executed in the form of a pipeline defined in a Jenkins 
 to view a pipeline, but we will make use of `Blue Ocean` as it has many improvements compared to other plugins.
 
 # Quality Assurance (QA)
-An addition to this project is also the use of the `Sonarqube` service. We will use this tool to scan our codebase so that
+An addition to this project the `Sonarqube` service has been included. We will use this tool to scan our codebase so that
 it can provide us with a wide arrange of `Code Quality Metrics` to improve our codebase.
 
 # CI/CD Stack
 The complete stack will run on docker containers for Jenkins/Sonarqube and PostgreSQL. A docker compose file has been 
-included to launch these services.
+included to launch all these services.
+
+# Resources
+Other useful resources for this project
+* https://github.com/fischer1983/docker-compose-jenkins-sonarqube
+* https://www.baeldung.com/sonar-qube
+* https://funnelgarden.com/sonarqube-jenkins-docker/
