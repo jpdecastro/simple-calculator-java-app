@@ -10,6 +10,7 @@ public class CalculatorTest {
         Assertions.assertThat(Calculator.add(2, 3)).isEqualTo(5);
     }
 
+    @Test
     public void testMultiply() {
         Assertions.assertThat(Calculator.multiply(2, 3)).isEqualTo(6);
     }
