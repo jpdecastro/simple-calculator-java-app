@@ -1,7 +1,3 @@
 .idea
 *.iml
 target/
-/docker/jenkins-data/
-/docker/jenkins-docker-certs/
-/docker/sonarqube_db/
-/docker/sonarqube_db_data/
