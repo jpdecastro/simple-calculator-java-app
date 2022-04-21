@@ -2,7 +2,7 @@ version: '3'
 
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: accelerator/jenkins-lts-maven
     container_name: jenkins
     ports:
       - "8082:8080"

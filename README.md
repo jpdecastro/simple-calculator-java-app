@@ -21,3 +21,4 @@ Other useful resources for this project
 * https://github.com/fischer1983/docker-compose-jenkins-sonarqube
 * https://www.baeldung.com/sonar-qube
 * https://funnelgarden.com/sonarqube-jenkins-docker/
+* https://blog.sandra-parsick.de/2020/06/10/test-coverage-reports-for-maven-projects-in-sonarqube-8-3-x/
