@@ -18,7 +18,7 @@ pipeline {
         }
         stage('SonarQube analysis') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9091 -Dsonar.login=b90e81aecd9a7db09694c22352e888c1dec6d886'
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9091 -Dsonar.login=b90e81aecd9a7db09694c22352e888c1dec6d886'
             }
         }
         stage('Deliver') {
