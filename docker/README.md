@@ -26,7 +26,7 @@ execute a set of commands to install Maven.
 
 ```shell script
 $ cd docker
-$ docker build -t accelerator/jenkins-lts-maven .
+$ docker build -t accelerator/jenkins-lts-maven . #use this new image in docker-compose.yml
 ```
 
 <b>Option 2: Access Jenkins container terminal to and install Maven</b>
